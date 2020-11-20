@@ -49,13 +49,13 @@ ResultSet rs = null;
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -88,22 +88,6 @@ ResultSet rs = null;
 
         jMenu1.setText("Cadastrar");
 
-        jMenuItem1.setText("Matéria Prima");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("Produto");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem2);
-
         jMenuItem3.setText("Cliente");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,13 +112,21 @@ ResultSet rs = null;
         });
         jMenu1.add(jMenuItem7);
 
-        jMenuItem8.setText("Venda");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1.setText("Matéria Prima");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem8);
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Produto");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
 
         jMenuItem9.setText("Estoque");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
@@ -143,6 +135,14 @@ ResultSet rs = null;
             }
         });
         jMenu1.add(jMenuItem9);
+
+        jMenuItem8.setText("Venda");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem8);
 
         jMenuBar1.add(jMenu1);
 
@@ -288,7 +288,7 @@ ResultSet rs = null;
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-       String src = "C:\\Users\\Vinícius\\Documents\\NetBeansProjects\\Estudos-Java--master\\Relatórios\\Relatório de vendas.jasper";
+       String src = "C:\\Users\\Leonardo\\Documents\\TCC\\Condessa\\Relatórios\\Relatório de vendas.jasper";
         JasperPrint jaspertprint = null;
     try {
         jaspertprint = JasperFillManager.fillReport(src,null,conexao);
@@ -300,7 +300,7 @@ ResultSet rs = null;
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-String src = "C:\\Users\\Vinícius\\Documents\\NetBeansProjects\\Estudos-Java--master\\Relatórios\\Relatório de estoque.jasper";
+String src = "C:\\Users\\Leonardo\\Documents\\TCC\\Condessa\\Relatórios\\Relatório de estoque.jasper";
         JasperPrint jaspertprint = null;
     try {
         jaspertprint = JasperFillManager.fillReport(src,null,conexao);
@@ -324,7 +324,15 @@ String src = "C:\\Users\\Vinícius\\Documents\\NetBeansProjects\\Estudos-Java--m
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        
+        String src = "C:\\Users\\Leonardo\\Documents\\TCC\\Condessa\\Relatórios\\Relatório de cliente.jasper";
+        JasperPrint jaspertprint = null;
+    try {
+        jaspertprint = JasperFillManager.fillReport(src,null,conexao);
+    } catch (JRException ex) {
+        System.out.println("erro");
+    }
+        JasperViewer view = new JasperViewer(jaspertprint, false);
+        view.setVisible(true);  
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**

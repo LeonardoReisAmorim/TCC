@@ -36,7 +36,7 @@ ORDER BY SUM(iv.quantidade_comprada) DESC]]>
 		<band height="79" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="79" uuid="7d1ce551-efb1-4108-9c12-99223a53f3a4"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24"/>
 				</textElement>
 				<text><![CDATA[Relatório de estoque]]></text>

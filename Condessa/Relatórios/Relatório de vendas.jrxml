@@ -35,7 +35,7 @@ Group by iv.id_vendas;]]>
 		<band height="79" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="79" uuid="ff73a42b-4809-47e4-99d5-36f87b38ca15"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24"/>
 				</textElement>
 				<text><![CDATA[Relatório de vendas]]></text>
