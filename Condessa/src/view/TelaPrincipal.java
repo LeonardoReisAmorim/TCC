@@ -51,7 +51,6 @@ ResultSet rs = null;
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -103,14 +102,6 @@ ResultSet rs = null;
             }
         });
         jMenu1.add(jMenuItem4);
-
-        jMenuItem7.setText("Embalagem");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem7);
 
         jMenuItem1.setText("Matéria Prima");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -262,19 +253,6 @@ ResultSet rs = null;
         
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        TelaEmbalagens telaemba;
-    try {
-        telaemba = new TelaEmbalagens();
-        telaemba.setVisible(true);
-        jDesktopPane1.add(telaemba);
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-    }
-        
-      
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         TelaVendas telavendas;
     try {
@@ -389,7 +367,6 @@ String src = "C:\\Users\\Leonardo\\Documents\\TCC\\Condessa\\Relatórios\\Relat�
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables

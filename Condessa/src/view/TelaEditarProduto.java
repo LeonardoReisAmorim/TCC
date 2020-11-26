@@ -22,7 +22,6 @@ public class TelaEditarProduto extends javax.swing.JFrame {
 Connection conexao = null;
 PreparedStatement pst = null;
 ResultSet rs = null;
-short clique = 0;
 boolean click = false;
 
     public void listarProduto(){
@@ -53,47 +52,17 @@ boolean click = false;
             }
             return 0;
         }
-        
-        public int pegarIdEmbalagem() throws SQLException{
-        String sql = "select id from embalagem where nome = '" + ed_embaProd.getSelectedItem().toString() + "'";
-        try{
-            pst = conexao.prepareStatement(sql);
-            rs = pst.executeQuery(sql);
-            while(rs.next()){
-                return rs.getInt("id");
-            }
-            
-        }
-        catch(SQLException ex){
-            Logger.getLogger(TelaAddVenda.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
-    }
-        
-        public void listarEmbalagem(){                                  
-        String sql="select nome from embalagem";
-        try {
-            pst = conexao.prepareStatement(sql);
-            rs = pst.executeQuery(sql);
-            while(rs.next()){
-                ed_embaProd.addItem(rs.getString("nome"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaEditarProduto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
      
         
         public void MostrarProduto() throws SQLException{
-        String sql = "select p.*, e.nome from produto p inner join embalagem e on p.id_embalagem = e.id where p.id = '" + pegarIdProduto() + "'";
+        String sql = "select * from produto where id = '" + pegarIdProduto() + "'";
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery(sql);
             while(rs.next()){
-                ed_nomeProd.setText(rs.getString("p.nome"));
-                ed_uniProd.setText(rs.getString("p.unidade"));
-                ed_precoProd.setText(""+rs.getDouble("p.preco"));
-                ed_embaProd.setSelectedItem(rs.getString("e.nome"));
+                ed_nomeProd.setText(rs.getString("nome"));
+                ed_uniProd.setText(rs.getString("unidade"));
+                ed_precoProd.setText(""+rs.getDouble("preco"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(TelaEditarProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,8 +71,7 @@ boolean click = false;
     
     public void UpdateProduto() throws SQLException{
         String sql = "update produto set nome = '" + ed_nomeProd.getText() + "', unidade = '" + ed_uniProd.getText() + 
-                "',preco = '" + Double.parseDouble(ed_precoProd.getText())+ "',id_embalagem = '" + pegarIdEmbalagem() + 
-                "'   where id = '" +pegarIdProduto() + "'";
+                "',preco = '" + Double.parseDouble(ed_precoProd.getText())+ "' where id = '" +pegarIdProduto() + "'";
             try {
                 pst = conexao.prepareStatement(sql);
             //executando o banco
@@ -122,7 +90,6 @@ boolean click = false;
         conexao = Database.conector();
         initComponents();
         listarProduto();
-        clique = 0;
     }
 
     /**
@@ -134,28 +101,20 @@ boolean click = false;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ed_embaProd = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         ed_nomeProd = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         ed_uniProd = new javax.swing.JTextField();
         ed_precoProd = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         Ed_prod = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Editar produto");
-
-        ed_embaProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ed_embaProdActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Nome");
 
@@ -183,8 +142,6 @@ boolean click = false;
             }
         });
 
-        jLabel4.setText("Embalagem");
-
         ed_uniProd.setName(""); // NOI18N
 
         jLabel7.setText("Selecione o produto");
@@ -203,29 +160,31 @@ boolean click = false;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton2))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel1)
-                                .addComponent(ed_nomeProd, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                                .addComponent(ed_precoProd))
-                            .addGap(55, 55, 55)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel4)
-                                .addComponent(ed_uniProd, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                                .addComponent(ed_embaProd, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addComponent(jLabel7)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Ed_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Ed_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton3)))
+                        .addContainerGap(216, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1)
+                                    .addComponent(ed_nomeProd, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                    .addComponent(ed_precoProd))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(ed_uniProd, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,7 +195,7 @@ boolean click = false;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Ed_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
@@ -245,26 +204,26 @@ boolean click = false;
                     .addComponent(ed_nomeProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ed_uniProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ed_precoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ed_embaProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addComponent(ed_precoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addGap(24, 24, 24))
+                .addGap(25, 25, 25))
         );
 
-        setSize(new java.awt.Dimension(536, 275));
+        setSize(new java.awt.Dimension(536, 305));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        int confirmar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja cancelar a edição do produto?", "Atenção",JOptionPane.YES_NO_OPTION);
+        if(confirmar==JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "Edição cancelada");
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -292,19 +251,11 @@ boolean click = false;
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     click = true;
     try {
-        clique++;
-        if(clique <= 1){
-            listarEmbalagem();
-        }
         MostrarProduto();
     } catch (SQLException ex) {
         Logger.getLogger(TelaEditarProduto.class.getName()).log(Level.SEVERE, null, ex);
     }
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void ed_embaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ed_embaProdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ed_embaProdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,7 +298,6 @@ boolean click = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Ed_prod;
-    private javax.swing.JComboBox<String> ed_embaProd;
     private javax.swing.JTextField ed_nomeProd;
     private javax.swing.JTextField ed_precoProd;
     private javax.swing.JTextField ed_uniProd;
@@ -357,7 +307,6 @@ boolean click = false;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }

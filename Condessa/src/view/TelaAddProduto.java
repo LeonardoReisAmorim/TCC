@@ -24,43 +24,11 @@ ResultSet rs = null;
      * Creates new form TelaAdcionarProduto
      */
 
-    public void listarEmba(){
-        String sql="select nome from embalagem";
-        try {
-            pst = conexao.prepareStatement(sql);
-            rs = pst.executeQuery(sql);
-            while(rs.next()){
-                ListaEmba.addItem(rs.getString("nome"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaAddProduto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public int pegarId() throws SQLException{
-        String sql = "select id from embalagem where nome = '" + ListaEmba.getSelectedItem().toString() + "'";
-        try{
-            pst = conexao.prepareStatement(sql);
-            rs = pst.executeQuery(sql);
-            while(rs.next()){
-                return rs.getInt("id");
-            }
-            
-        }
-        catch(SQLException ex){
-            Logger.getLogger(TelaAddProduto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
-    }
-    
-    
-    
     private void adicionar() throws SQLException{
-        int id = pegarId();
         String sql = "insert into produto"+
-                     "(nome, unidade, preco, id_embalagem, sta_prod)"+
+                     "(nome, unidade, preco, sta_prod)"+
                      //? = n sei os dados q vao vim
-                     "values (?,?,?,?,?)";
+                     "values (?,?,?,?)";
         try {
             //preparando o banco pra ser usado
             pst = conexao.prepareStatement(sql);
@@ -68,8 +36,7 @@ ResultSet rs = null;
             pst.setString(1, Nome_prod.getText());
             pst.setString(2, Uni_prod.getText());
             pst.setDouble(3, Double.parseDouble(Preco_prod.getText()));
-            pst.setInt(4, id);
-            pst.setBoolean(5, false);
+            pst.setBoolean(4, false);
             //executando o banco
             pst.executeUpdate();
             //mensagem para o usuario
@@ -78,14 +45,13 @@ ResultSet rs = null;
             pst.close();
             conexao.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+            JOptionPane.showMessageDialog(null, "Produto não cadastrado");
         }
     }
     
     public TelaAddProduto() throws ClassNotFoundException {
         conexao = Database.conector();
         initComponents();
-        listarEmba();
     }
     
 
@@ -106,11 +72,9 @@ ResultSet rs = null;
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        ListaEmba = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Adcionar produto");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Adicionar produto");
 
         Nome_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,43 +110,34 @@ ResultSet rs = null;
             }
         });
 
-        jLabel4.setText("Nome da embalagem*");
-
-        ListaEmba.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ListaEmbaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(Nome_prod, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                            .addComponent(Preco_prod))
-                        .addGap(55, 55, 55)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(Uni_prod, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                            .addComponent(ListaEmba, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButton1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton2))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(Nome_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(55, 55, 55)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(Uni_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel3)
+                    .addComponent(Preco_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
@@ -190,22 +145,18 @@ ResultSet rs = null;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Nome_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Uni_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Preco_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ListaEmba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addComponent(Preco_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
 
-        setSize(new java.awt.Dimension(548, 221));
+        setSize(new java.awt.Dimension(548, 257));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -214,12 +165,11 @@ ResultSet rs = null;
     }//GEN-LAST:event_Nome_prodActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    try {
-        // TODO add your handling code here:
-        pegarId();
-    } catch (SQLException ex) {
-        Logger.getLogger(TelaAddProduto.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        int confirmar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja cancelar o cadastro?", "Atenção",JOptionPane.YES_NO_OPTION);
+        if(confirmar==JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "Cadastro cancelado");
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -229,7 +179,6 @@ ResultSet rs = null;
         }
         else{
             try {
-                pegarId();
                 this.adicionar();
                 this.dispose();
             } catch (SQLException ex) {
@@ -237,10 +186,6 @@ ResultSet rs = null;
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void ListaEmbaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaEmbaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ListaEmbaActionPerformed
 
     private void Preco_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Preco_prodActionPerformed
         // TODO add your handling code here:
@@ -287,7 +232,6 @@ ResultSet rs = null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<Object> ListaEmba;
     private javax.swing.JTextField Nome_prod;
     private javax.swing.JTextField Preco_prod;
     private javax.swing.JTextField Uni_prod;
@@ -296,6 +240,5 @@ ResultSet rs = null;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }

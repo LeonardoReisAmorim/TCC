@@ -99,10 +99,10 @@ ResultSet rs = null;
             //preparando o banco pra ser usado
             pst = conexao.prepareStatement(sql);
             //setando(colocando) os dados no banco
-            pst.setString(1, Qtd_est.getText());
+            pst.setDouble(1,Double.parseDouble(Qtd_est.getText()));
             pst.setInt(2, idM);
             pst.setInt(3, idP);
-            pst.setString(4, Qtd_materiaprima.getText());
+            pst.setDouble(4,Double.parseDouble(Qtd_materiaprima.getText()));
             //executando o banco
             pst.executeUpdate();
             //mensagem para o usuario
@@ -132,8 +132,6 @@ ResultSet rs = null;
         String sql = "update materiaprima set quantidade = quantidade - '" + Double.parseDouble((Qtd_materiaprima.getText())) + "' where lote = '" + pegarIdMat() + "'";
         
         try {
-            
-            
             //preparando o banco pra ser usado
             pst = conexao.prepareStatement(sql);
             pst.executeUpdate();
@@ -171,12 +169,13 @@ ResultSet rs = null;
         Qtd_materiaprima = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Adicionar Estoque");
 
-        jLabel1.setText("Nome do produto");
+        jLabel1.setText("Nome do produto*");
 
-        jLabel2.setText("Matéria-prima");
+        jLabel2.setText("Matéria-prima*");
 
-        jLabel3.setText("Quantidade");
+        jLabel3.setText("Quantidade do estoque*");
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -198,33 +197,35 @@ ResultSet rs = null;
             }
         });
 
-        jLabel4.setText("Quantidade de matéria prima");
+        jLabel4.setText("Quantidade de matéria prima*");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Mat_est, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(Nome_est, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Mat_est, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(Nome_est, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(53, 53, 53)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Qtd_est, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
                             .addComponent(Qtd_materiaprima, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))))
-                .addContainerGap(52, Short.MAX_VALUE))
+                            .addComponent(jLabel4)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Qtd_est, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2)))))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,12 +252,10 @@ ResultSet rs = null;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addGap(50, 50, 50))
+                .addGap(51, 51, 51))
         );
 
-        getAccessibleContext().setAccessibleName("Adicionar Estoque");
-
-        setSize(new java.awt.Dimension(500, 300));
+        setSize(new java.awt.Dimension(488, 301));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -285,7 +284,6 @@ ResultSet rs = null;
                         JOptionPane.showMessageDialog(null, "Quantidade de matéria prima excedida");
                     }
                 }
-                
             }
             catch(SQLException ex){
                 Logger.getLogger(TelaAddEstoque.class.getName()).log(Level.SEVERE, null, ex);

@@ -23,8 +23,9 @@ Connection conexao = null;
 PreparedStatement pst = null;
 ResultSet rs = null;
 
+
 public void MostrarProduto(){
-    String sql = "SELECT p.nome, p.unidade, p.preco, e.nome FROM produto p INNER JOIN embalagem e on p.id_embalagem = e.id";
+    String sql = "SELECT * FROM produto";
         try {
            pst = conexao.prepareStatement(sql);
            rs = pst.executeQuery(sql);
@@ -33,10 +34,9 @@ public void MostrarProduto(){
            while(rs.next()){
               model.addRow(new Object[]
               {
-                  rs.getString("p.nome"),
-                  rs.getString("p.unidade"),
-                  rs.getDouble("p.preco"),
-                  rs.getString("e.nome"),
+                  rs.getString("nome"),
+                  rs.getString("unidade"),
+                  rs.getDouble("preco"),
               });
           }
          pst.close();
@@ -89,15 +89,22 @@ public void MostrarProduto(){
 
             },
             new String [] {
-                "Nome", "Unidade", "Preço", "Embalagem"
+                "Nome", "Unidade", "Preço"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(TabelaProduto);

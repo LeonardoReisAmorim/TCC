@@ -84,7 +84,7 @@ boolean clicou = false;
                 "',cpf = '" +ed_cpf.getText()+ "',DataDeNascimento = '" + ed_data.getText()+ 
                 "',numero = '" + Integer.parseInt(ed_num.getText()) + "',cep = '" + Integer.parseInt(ed_cep.getText()) + 
                 "',bairro = '" + ed_Bai_cli.getText() + "',rua = '" + ed_Rua_cli.getText() + 
-                "',cidade = '" + ed_Cid_cli.getText() + "'   where id = '" + pegarIdCliente() + "'";
+                "',cidade = '" + ed_Cid_cli.getText() + "'  where id = '" + pegarIdCliente() + "'";
         
 
             try {
@@ -94,6 +94,7 @@ boolean clicou = false;
                 JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso");
                 this.dispose();
             } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Cliente não pode ser editado");
                 Logger.getLogger(TelaAddVenda.class.getName()).log(Level.SEVERE, null, ex);
             } 
     }
@@ -133,14 +134,14 @@ boolean clicou = false;
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        ed_Rua_cli = new javax.swing.JLabel();
         ed_Bai_cli = new javax.swing.JLabel();
+        ed_Rua_cli = new javax.swing.JLabel();
         ed_Cid_cli = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
         ed_tel = new javax.swing.JFormattedTextField();
         ed_cpf = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jButton2.setText("Editar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -159,7 +160,13 @@ boolean clicou = false;
 
         jLabel1.setText("Nome");
 
-        jLabel2.setText("CPF                                               Apenas números");
+        jLabel2.setText("CPF                                           Apenas números");
+
+        ed_cep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ed_cepKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("Telefone");
 
@@ -196,18 +203,11 @@ boolean clicou = false;
 
         jLabel10.setText("Cidade:");
 
-        ed_Rua_cli.setText("-");
-
         ed_Bai_cli.setText("-");
 
-        ed_Cid_cli.setText("-");
+        ed_Rua_cli.setText("-");
 
-        jButton5.setText("Buscar CEP");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
+        ed_Cid_cli.setText("-");
 
         try {
             ed_tel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
@@ -221,50 +221,46 @@ boolean clicou = false;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jSeparator1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(ed_Cid_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(ed_nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                            .addComponent(ed_cep, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(ed_tel))
+                                        .addGap(30, 30, 30))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(ed_Rua_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ed_num, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ed_data, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ed_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel9)
+                                    .addComponent(ed_Bai_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButton5)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ed_nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                                    .addComponent(ed_cep, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ed_tel))
-                                .addGap(30, 30, 30))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(ed_Bai_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ed_num, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ed_data, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ed_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel9)
-                            .addComponent(ed_Rua_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Ed_cli, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(26, 26, 26))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ed_Cid_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10))
-                                .addGap(72, 72, 72)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addComponent(jButton2)))
+                                    .addComponent(Ed_cli, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton3)))))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -301,42 +297,40 @@ boolean clicou = false;
                             .addComponent(ed_cep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ed_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addComponent(jButton5)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ed_Rua_cli)
-                            .addComponent(ed_Bai_cli))
-                        .addGap(57, 57, 57)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton1)))
+                            .addComponent(ed_Bai_cli)
+                            .addComponent(ed_Rua_cli)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addGap(44, 44, 44)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ed_Cid_cli)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addGap(55, 55, 55))
         );
 
-        setSize(new java.awt.Dimension(562, 522));
+        setSize(new java.awt.Dimension(562, 519));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     if(ed_tel.getText().equals("(  )      -    ") || ed_nome.getText().equals("") || ed_cpf.getText().equals("  .   .   -  ")
-                || ed_data.getText().equals("  /  /    ") || ed_num.getText().isEmpty() || ed_cep.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, "Preencha os campos corretamente");
-    }else if(ed_cpf.getText().length() != 11){
+       || ed_data.getText().equals("  /  /    ") || ed_num.getText().isEmpty() || ed_cep.getText().isEmpty()){
         JOptionPane.showMessageDialog(null, "Preencha os campos corretamente");
     }else{
-            try {
-                UpdateCliente();
+        try{
+            UpdateCliente();
     } catch (SQLException ex) {
         Logger.getLogger(TelaEditarCliente.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -349,26 +343,12 @@ boolean clicou = false;
     }//GEN-LAST:event_ed_nomeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if(ed_cep.equals("")){
-            JOptionPane.showMessageDialog(null, "Insira o CEP");
-        }else{
-            BuscaCep busca = new BuscaCep();
-            String cep = ed_cep.getText();
-            busca.setJcep(cep);
-            try {
-                ed_Rua_cli.setText(busca.getEndereco(cep));
-                ed_Bai_cli.setText(busca.getBairro(cep));
-                ed_Cid_cli.setText(busca.getCidade(cep));
-            }catch (IOException ex){
-                Logger.getLogger(TelaAddCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        int confirmar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja cancelar a edição do cliente?", "Atenção",JOptionPane.YES_NO_OPTION);
+        if(confirmar==JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "Edição cancelada");
+            this.dispose();
         }
-        clicou = true;
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     try {
@@ -377,6 +357,29 @@ boolean clicou = false;
         Logger.getLogger(TelaEditarCliente.class.getName()).log(Level.SEVERE, null, ex);
     }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void ed_cepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ed_cepKeyReleased
+        ed_Rua_cli.setText("Aguarde");
+        ed_Bai_cli.setText("Aguarde");
+        ed_Cid_cli.setText("Aguarde");
+        if(ed_cep.getText().length() == 8){
+           JOptionPane.showMessageDialog(null, "CEP digitado");
+           BuscaCep busca = new BuscaCep();
+           String cep = ed_cep.getText();
+           busca.setJcep(cep);
+           try {
+                JOptionPane.showMessageDialog(null, "Aguarde");
+                ed_Rua_cli.setText(busca.getEndereco(cep));
+                ed_Bai_cli.setText(busca.getBairro(cep));
+                ed_Cid_cli.setText(busca.getCidade(cep));
+                busca.valido();     
+        }catch (IOException ex){
+            JOptionPane.showMessageDialog(null, ex);
+            //Logger.getLogger(TelaAddCliente.class.getName()).log(Level.SEVERE, null, ex); 
+        }
+       }
+       
+    }//GEN-LAST:event_ed_cepKeyReleased
 
     /**
      * @param args the command line arguments
@@ -431,7 +434,6 @@ boolean clicou = false;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -442,5 +444,6 @@ boolean clicou = false;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

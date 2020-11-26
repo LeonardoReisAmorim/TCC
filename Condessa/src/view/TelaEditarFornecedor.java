@@ -33,7 +33,6 @@ boolean clicou = false;
                 Ed_forn.addItem(rs.getString("nome"));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "erro ao listar fornecedor");
             Logger.getLogger(TelaEditarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -50,7 +49,6 @@ boolean clicou = false;
             
         }
         catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "erro pegar id do fornecedor");
             Logger.getLogger(TelaEditarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
@@ -63,9 +61,9 @@ boolean clicou = false;
             rs = pst.executeQuery(sql);
             while(rs.next()){
                 ed_nomeforn.setText(rs.getString("nome"));
-                ed_cnpj.setText(""+rs.getInt("cnpj"));
+                ed_cnpj.setText(""+rs.getString("cnpj"));
                 ed_cidforn.setText(rs.getString("cidade"));
-                ed_contato.setText(""+rs.getInt("contato"));
+                ed_contato.setText(""+rs.getString("contato"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(TelaEditarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,11 +71,9 @@ boolean clicou = false;
     }
     
     public void UpdateFornecedor() throws SQLException{
-        String sql = "update fornecedor set nome = '" + ed_nomeforn.getText() + "', cnpj = '" + Integer.parseInt(ed_cnpj.getText()) + 
-                "',cidade = '" +ed_cidforn.getText()+ "',contato = '" + Integer.parseInt(ed_contato.getText())+ 
+        String sql = "update fornecedor set nome = '" + ed_nomeforn.getText() + "', cnpj = '" + ed_cnpj.getText() + 
+                "',cidade = '" +ed_cidforn.getText()+ "',contato = '" + ed_contato.getText()+ 
                 "'   where id = '" + pegarIdFornecedor() + "'";
-        
-
             try {
                 pst = conexao.prepareStatement(sql);
             //executando o banco
@@ -85,6 +81,7 @@ boolean clicou = false;
                 JOptionPane.showMessageDialog(null, "Fornecedor atualizado com sucesso");
                 this.dispose();
             } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Fornecedor nao pode ser atualizado");
                 Logger.getLogger(TelaEditarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
             }
         
@@ -98,6 +95,7 @@ boolean clicou = false;
         conexao = Database.conector();
         initComponents();
         listarFornecedor();
+        clicou = false;
     }
 
     /**
@@ -123,7 +121,7 @@ boolean clicou = false;
         Ed_forn = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Editar fornecedor");
 
         jButton2.setText("Editar");
@@ -192,7 +190,7 @@ boolean clicou = false;
                         .addComponent(Ed_forn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jButton3)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +201,7 @@ boolean clicou = false;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Ed_forn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
-                .addGap(21, 21, 21)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
@@ -219,27 +217,30 @@ boolean clicou = false;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ed_cidforn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ed_contato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addGap(54, 54, 54))
         );
 
-        setSize(new java.awt.Dimension(592, 314));
+        setSize(new java.awt.Dimension(590, 337));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(ed_nomeforn.getText().equals("") || ed_cidforn.getText().equals("") || ed_cnpj.getText().isEmpty() || ed_contato.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, "Preencha os campos corretamente");
+    if(clicou){
+        if(ed_nomeforn.getText().equals("") || ed_cidforn.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Preencha os campos corretamente");
+        }else{
+                try {
+                    UpdateFornecedor();
+                }catch (SQLException ex) {
+                    Logger.getLogger(TelaEditarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
     }else{
-            try {
-               
-        UpdateFornecedor();
-    } catch (SQLException ex) {
-        Logger.getLogger(TelaEditarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        JOptionPane.showMessageDialog(null, "Pesquise o fornecedor");
     }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -248,11 +249,16 @@ boolean clicou = false;
     }//GEN-LAST:event_ed_nomefornActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        int confirmar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja cancelar a edição do fornecedor?", "Atenção",JOptionPane.YES_NO_OPTION);
+        if(confirmar==JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "Edição cancelada");
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
+            clicou = true;
             MostrarFornecedor();
         } catch (SQLException ex) {
             Logger.getLogger(TelaEditarCliente.class.getName()).log(Level.SEVERE, null, ex);

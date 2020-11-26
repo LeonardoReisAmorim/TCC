@@ -35,9 +35,20 @@ ResultSet rs = null;
             pst = conexao.prepareStatement(sql);
             //setando(colocando) os dados no banco
             pst.setString(1, Nome_forn.getText());
-            pst.setInt(2, Integer.parseInt(Cnpj_forn.getText()));
+            
+            if(Cnpj_forn.getText().isEmpty()){
+                pst.setString(2, "Sem CNPJ");
+            }else{
+                pst.setString(2, Cnpj_forn.getText());
+            }
+            
             pst.setString(3, Cid_forn.getText());
-            pst.setInt(4, Integer.parseInt(Con_forn.getText()));
+            
+            if(Con_forn.getText().isEmpty()){
+                pst.setString(4, "Sem Contato");
+            }else{
+                pst.setString(4, Con_forn.getText());
+            }
             //executando o banco
             pst.executeUpdate();
             //mensagem para o usuario
@@ -73,16 +84,16 @@ ResultSet rs = null;
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Adicionar fornecedor");
 
         jLabel1.setText("Nome da empresa*");
 
-        jLabel2.setText("CNPJ*");
+        jLabel2.setText("CNPJ");
 
         jLabel3.setText("Cidade*");
 
-        jLabel4.setText("Contato*");
+        jLabel4.setText("Contato");
 
         Nome_forn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,12 +173,16 @@ ResultSet rs = null;
     }//GEN-LAST:event_Nome_fornActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-               
+        int confirmar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja cancelar o cadastro?", "Atenção",JOptionPane.YES_NO_OPTION);
+        if(confirmar==JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "Cadastro cancelado");
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(Nome_forn.getText().equals("") || Con_forn.getText().equals("") || Cid_forn.getText().equals("") || Cnpj_forn.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Insira os Dados corretos");
+        if(Nome_forn.getText().equals("") || Cid_forn.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Insira os Dados necessários");
         }
         else{
             this.adicionar();

@@ -98,7 +98,7 @@ ResultSet rs = null;
         jLabel2 = new javax.swing.JLabel();
         Cpf_cli = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Adicionar cliente");
 
         jLabel1.setText("Nome*");
@@ -166,7 +166,7 @@ ResultSet rs = null;
             ex.printStackTrace();
         }
 
-        jLabel2.setText("CPF                                      Apenas números");
+        jLabel2.setText("CPF                                                Apenas números");
 
         try {
             Cpf_cli.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
@@ -198,7 +198,7 @@ ResultSet rs = null;
                         .addGap(55, 55, 55)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Bai_cli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                             .addComponent(Data_cli)
                             .addComponent(Num_cli)
                             .addGroup(layout.createSequentialGroup()
@@ -266,7 +266,7 @@ ResultSet rs = null;
                 .addGap(36, 36, 36))
         );
 
-        setSize(new java.awt.Dimension(587, 430));
+        setSize(new java.awt.Dimension(597, 430));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -275,7 +275,11 @@ ResultSet rs = null;
     }//GEN-LAST:event_Nome_cliActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        int confirmar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja cancelar o cadastro?", "Atenção",JOptionPane.YES_NO_OPTION);
+        if(confirmar==JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "Cadastro cancelado");
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -284,7 +288,7 @@ ResultSet rs = null;
             JOptionPane.showMessageDialog(null, "Insira os dados corretos");
         }
         else{
-                this.adicionar();
+            this.adicionar();
         }
         
         

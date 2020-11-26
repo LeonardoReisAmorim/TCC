@@ -109,10 +109,10 @@ ResultSet rs = null;
         jLabel4 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Adicionar Materia Prima");
 
-        jLabel3.setText("Quantidade");
+        jLabel3.setText("Quantidade*");
 
         Nome_mat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,11 +134,11 @@ ResultSet rs = null;
             }
         });
 
-        jLabel1.setText("Nome");
+        jLabel1.setText("Nome*");
 
         jLabel2.setText("Fornecedor");
 
-        jLabel4.setText("Preço de uma matéria prima");
+        jLabel4.setText("Preço de uma matéria prima*");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,7 +200,11 @@ ResultSet rs = null;
     }//GEN-LAST:event_Nome_matActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        int confirmar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja cancelar o cadastro?", "Atenção",JOptionPane.YES_NO_OPTION);
+        if(confirmar==JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "Cadastro cancelado");
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
