@@ -69,13 +69,13 @@ ResultSet rs = null;
     }
     
     public void mostrarestoque() throws SQLException{
-        String sql = "select e.quantidade, mp.nome from estoque e inner join materiaprima mp on mp.lote = e.LOTE_materia where e.id = '" + pegarIdEst() + "'";
+        String sql = "select e.quantidade, mp.lote from estoque e inner join materiaprima mp on mp.lote = e.LOTE_materia where e.id = '" + pegarIdEst() + "'";
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery(sql);
             while(rs.next()){
                 jLabel10.setText(""+rs.getDouble("e.quantidade"));
-                jLabel11.setText(rs.getString("mp.nome"));
+                jLabel11.setText(""+rs.getInt("mp.lote"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(TelaAddEstoque.class.getName()).log(Level.SEVERE, null, ex);
@@ -182,7 +182,7 @@ ResultSet rs = null;
 
         jLabel5.setText("Selecione o nome do produto no estoque");
 
-        jLabel7.setText("Matéria-prima:");
+        jLabel7.setText("Lote da Matéria-prima:");
 
         jLabel8.setText("Quantidade do estoque do produto:");
 
@@ -235,7 +235,7 @@ ResultSet rs = null;
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)))
+                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -287,7 +287,11 @@ ResultSet rs = null;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        int confirmar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja cancelar a exclusão do estoque?", "Atenção",JOptionPane.YES_NO_OPTION);
+        if(confirmar==JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "Exclusão cancelada");
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

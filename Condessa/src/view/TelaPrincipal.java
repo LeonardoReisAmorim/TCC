@@ -59,7 +59,6 @@ ResultSet rs = null;
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle de estoque e vendas Condessa");
@@ -165,9 +164,6 @@ ResultSet rs = null;
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Ajuda");
-        jMenuBar1.add(jMenu3);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -266,7 +262,7 @@ ResultSet rs = null;
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-       String src = "C:\\Users\\Leonardo\\Documents\\TCC\\Condessa\\Relat처rios\\Relat처rio de vendas.jasper";
+       String src = "C:\\Users\\IanLu\\OneDrive\\Documentos\\NetBeansProjects\\TCC-main\\Condessa\\Relat처rios\\Relat처rio de vendas.jasper";
         JasperPrint jaspertprint = null;
     try {
         jaspertprint = JasperFillManager.fillReport(src,null,conexao);
@@ -278,7 +274,7 @@ ResultSet rs = null;
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-String src = "C:\\Users\\Leonardo\\Documents\\TCC\\Condessa\\Relat처rios\\Relat처rio de estoque.jasper";
+String src = "C:\\Users\\IanLu\\OneDrive\\Documentos\\NetBeansProjects\\TCC-main\\Condessa\\Relat처rios\\Relat처rio de Estoque.jasper";
         JasperPrint jaspertprint = null;
     try {
         jaspertprint = JasperFillManager.fillReport(src,null,conexao);
@@ -302,7 +298,7 @@ String src = "C:\\Users\\Leonardo\\Documents\\TCC\\Condessa\\Relat처rios\\Relat�
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        String src = "C:\\Users\\Leonardo\\Documents\\TCC\\Condessa\\Relat처rios\\Relat처rio de cliente.jasper";
+        String src = "C:\\Users\\IanLu\\OneDrive\\Documentos\\NetBeansProjects\\TCC-main\\Condessa\\Relat처rios\\Relat처rio de cliente.jasper";
         JasperPrint jaspertprint = null;
     try {
         jaspertprint = JasperFillManager.fillReport(src,null,conexao);
@@ -358,7 +354,6 @@ String src = "C:\\Users\\Leonardo\\Documents\\TCC\\Condessa\\Relat처rios\\Relat�
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;

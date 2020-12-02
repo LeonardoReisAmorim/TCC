@@ -65,9 +65,9 @@ public class TelaExcluirFornecedor extends javax.swing.JFrame {
             rs = pst.executeQuery(sql);
             while(rs.next()){
                 ex_noforn.setText(rs.getString("nome"));
-                ex_cnpj.setText(""+rs.getInt("cnpj"));
+                ex_cnpj.setText(""+rs.getString("cnpj"));
                 ex_cidforn.setText(rs.getString("cidade"));
-                ex_con.setText(""+rs.getInt("contato"));
+                ex_con.setText(""+rs.getString("contato"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(TelaExcluirFornecedor.class.getName()).log(Level.SEVERE, null, ex);
@@ -250,7 +250,11 @@ public class TelaExcluirFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        int confirmar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja cancelar a exclusão da materia prima?", "Atenção",JOptionPane.YES_NO_OPTION);
+        if(confirmar==JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "Exclusão cancelada");
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
